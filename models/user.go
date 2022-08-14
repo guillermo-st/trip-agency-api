@@ -1,6 +1,10 @@
 package models
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"golang.org/x/crypto/bcrypt"
+)
 
 type User struct {
 	Id        uint64 `json:"id" db:"user_id"`
@@ -25,4 +29,17 @@ func (usr User) MarshalJSON() ([]byte, error) {
 	tmp.RoleID = usr.RoleId
 
 	return json.Marshal(&tmp)
+}
+
+func (usr *User) HashPassword(password string) error {
+	passwdBytes, err := bcrypt.GenerateFromPassword([]byte(usr.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+	usr.Password = string(passwdBytes)
+	return nil
+}
+
+func (usr *User) ValidatePassword(attemptedPassword string) error {
+	return bcrypt.CompareHashAndPassword([]byte(attemptedPassword), []byte(usr.Password))
 }
