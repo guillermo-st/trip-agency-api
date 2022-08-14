@@ -31,7 +31,7 @@ func (usr User) MarshalJSON() ([]byte, error) {
 	return json.Marshal(&tmp)
 }
 
-func (usr *User) HashPassword(password string) error {
+func (usr *User) HashPassword() error {
 	passwdBytes, err := bcrypt.GenerateFromPassword([]byte(usr.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
@@ -41,5 +41,5 @@ func (usr *User) HashPassword(password string) error {
 }
 
 func (usr *User) ValidatePassword(attemptedPassword string) error {
-	return bcrypt.CompareHashAndPassword([]byte(attemptedPassword), []byte(usr.Password))
+	return bcrypt.CompareHashAndPassword([]byte(usr.Password), []byte(attemptedPassword))
 }
