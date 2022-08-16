@@ -26,8 +26,9 @@ func (repo *DBDriverRepository) GetDrivers(pageSize uint, pageNum uint) ([]model
 
 	query := `SELECT user_id, first_name, last_name, email, password, role_id 
 				FROM users 
+				WHERE role_id = 2
 				ORDER BY user_id ASC
-				LIMIT ? OFFSET ?;`
+				LIMIT $1 OFFSET $2;`
 
 	offset := pageNum * pageSize
 
@@ -45,9 +46,9 @@ func (repo *DBDriverRepository) GetDriversByStatus(pageSize uint, pageNum uint, 
 	queryFinishedAt := "IS NULL"
 	query := `SELECT u.user_id, u.first_name, u.last_name, u.email, u.password, u.role_id 
 				FROM users u INNER JOIN trips t ON t.user_id = u.user_id
-				WHERE t.finished_at ? AND u.role_id = 2
+				WHERE t.finished_at $1 AND u.role_id = 2
 				ORDER BY user_id ASC
-				LIMIT ? OFFSET ?;`
+				LIMIT $2 OFFSET $3;`
 
 	if !isOnTrip {
 		noTripsQuery := `SELECT u.user_id, u.first_name, u.last_name, u.email, u.password, u.role_id 

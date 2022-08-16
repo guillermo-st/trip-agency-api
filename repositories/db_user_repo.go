@@ -21,6 +21,6 @@ func NewDBUserRepository(db *sqlx.DB) (*DBUserRepository, error) {
 
 func (repo *DBDriverRepository) GetUserByEmail(email string) (models.User, error) {
 	var usr models.User
-	err := repo.db.Get(&usr, "SELECT user_id, first_name, last_name, email, password, role_id FROM users WHERE email = ?", email)
+	err := repo.db.Get(&usr, "SELECT user_id, first_name, last_name, email, password, role_id FROM users WHERE email = $1", email)
 	return usr, err
 }
