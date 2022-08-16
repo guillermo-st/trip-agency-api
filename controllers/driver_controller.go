@@ -18,9 +18,8 @@ func NewDriverController(repo repositories.DriverRepository) *DriverController {
 
 func (ctrl *DriverController) GetDrivers(ctx *gin.Context) {
 	type request struct {
-		PageNum  uint   `json:"page_num"`
-		PageSize uint   `json:"page_size"`
-		Token    string `json:"token"`
+		PageNum  uint `json:"page_num"`
+		PageSize uint `json:"page_size"`
 	}
 	var req request
 
@@ -49,10 +48,9 @@ func (ctrl *DriverController) GetDrivers(ctx *gin.Context) {
 
 func (ctrl *DriverController) GetDriversByStatus(ctx *gin.Context) {
 	type request struct {
-		PageNum  uint   `json:"page_num"`
-		PageSize uint   `json:"page_size"`
-		IsOnTrip bool   `json:"is_on_trip"`
-		Token    string `json:"token"`
+		PageNum  uint `json:"page_num"`
+		PageSize uint `json:"page_size"`
+		IsOnTrip bool `json:"is_on_trip"`
 	}
 	var req request
 
@@ -82,7 +80,6 @@ func (ctrl *DriverController) GetDriversByStatus(ctx *gin.Context) {
 func (ctrl *DriverController) AddDriver(ctx *gin.Context) {
 	type request struct {
 		Driver models.User `json:"driver"`
-		Token  string      `json:"token"`
 	}
 	var req request
 
