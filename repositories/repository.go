@@ -14,5 +14,5 @@ type TripRepository interface {
 }
 
 type UserRepository interface {
-	GetUserByEmail(email string) (*models.User, error)
+	GetUserByEmail(email string) (models.User, error)
 }
