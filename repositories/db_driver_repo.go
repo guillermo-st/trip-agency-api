@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/guillermo-st/trip-agency-api/models"
 	"github.com/jmoiron/sqlx"
@@ -44,11 +45,11 @@ func (repo *DBDriverRepository) GetDriversByStatus(pageSize uint, pageNum uint, 
 	var drivers []models.User
 
 	queryFinishedAt := "IS NULL"
-	query := `SELECT u.user_id, u.first_name, u.last_name, u.email, u.password, u.role_id 
+	query := `SELECT u.user_id as user_id, u.first_name as first_name, u.last_name as last_name, u.email as email, u.password as password, u.role_id as role_id
 				FROM users u INNER JOIN trips t ON t.user_id = u.user_id
-				WHERE t.finished_at $1 AND u.role_id = 2
+				WHERE t.finished_at %v AND u.role_id = 2
 				ORDER BY user_id ASC
-				LIMIT $2 OFFSET $3;`
+				LIMIT $1 OFFSET $2;`
 
 	if !isOnTrip {
 		noTripsQuery := `SELECT u.user_id, u.first_name, u.last_name, u.email, u.password, u.role_id 
@@ -61,9 +62,9 @@ func (repo *DBDriverRepository) GetDriversByStatus(pageSize uint, pageNum uint, 
 		query = noTripsQuery + query
 		queryFinishedAt = "IS NOT NULL"
 	}
-
+	query = fmt.Sprintf(query, queryFinishedAt)
 	offset := pageNum * pageSize
-	err := repo.db.Select(&drivers, query, queryFinishedAt, pageSize, offset)
+	err := repo.db.Select(&drivers, query, pageSize, offset)
 	return drivers, err
 }
 
