@@ -9,8 +9,8 @@ type DriverRepository interface {
 }
 
 type TripRepository interface {
-	StartNewTripForDriver(driver models.User) error
-	FinishTripForDriver(driver models.User) error
+	StartNewTripForDriver(driverId uint) error
+	FinishTripForDriver(driverId uint) error
 }
 
 type UserRepository interface {
