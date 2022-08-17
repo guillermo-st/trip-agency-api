@@ -3,6 +3,8 @@ package main
 import (
 	"errors"
 	"fmt"
+	"os"
+	"strconv"
 
 	"github.com/guillermo-st/trip-agency-api/database"
 	"github.com/guillermo-st/trip-agency-api/server"
@@ -29,7 +31,17 @@ func main() {
 		panic(err)
 	}
 
-	err = srv.Run(8000)
+	portStr := os.Getenv("SVPORT")
+	if portStr == "" {
+		portStr = "8000"
+	}
+
+	port, err := strconv.ParseUint(portStr, 10, 64)
+	if err != nil {
+		panic(err)
+	}
+
+	err = srv.Run(uint(port))
 	if err != nil {
 		panic(err)
 	}
