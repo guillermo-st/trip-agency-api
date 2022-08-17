@@ -15,11 +15,11 @@ func AuthorizeJWT(isForAdminOnly bool) gin.HandlerFunc {
 			if r := recover(); r != nil {
 				err := errors.New("Panicked while trying to read Auth token")
 				fmt.Println(err.Error())
+				ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+					"error":   true,
+					"message": "Could not retrieve user authentication token from the 'Bearer ' header.",
+				})
 			}
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-				"error":   true,
-				"message": "Could not retrieve user authentication token from the 'Bearer ' header.",
-			})
 		}()
 
 		const BEARER = "Bearer "
