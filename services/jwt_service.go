@@ -3,6 +3,7 @@ package services
 import (
 	"encoding/json"
 	"errors"
+	"os"
 	"time"
 
 	jwt "github.com/cristalhq/jwt/v4"
@@ -25,7 +26,12 @@ type JsonWebTokenService struct {
 }
 
 func NewJsonWebTokenService() (*JsonWebTokenService, error) {
-	secret := []byte("thisShouldBeAnEnvVariable")
+	secretStr := os.Getenv("JWT_SECRET")
+	if secretStr == "" {
+		secretStr = "thisShouldBeAnEnvVariable"
+	}
+
+	secret := []byte(secretStr)
 	signer, err := jwt.NewSignerHS(jwt.HS256, secret)
 	if err != nil {
 		return nil, err
