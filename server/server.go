@@ -67,8 +67,6 @@ func (srv *Server) initRoutes() {
 		tripRoutes.POST("/finish", srv.tripCtrl.FinishTripForDriver)
 	}
 
-	srv.router.POST("/trips")
-
 	srv.router.POST("/login", srv.loginCtrl.Login)
 }
 
