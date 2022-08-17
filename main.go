@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/guillermo-st/trip-agency-api/database"
 	"github.com/guillermo-st/trip-agency-api/server"
-	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
 
@@ -18,7 +18,7 @@ func main() {
 		return
 	}()
 
-	db, err := sqlx.Open("postgres", "host=localhost port=5432 user=postgres password=postgres dbname=local sslmode=disable")
+	db, err := database.NewPostgresDBClient()
 	if err != nil {
 		panic(err)
 	}
