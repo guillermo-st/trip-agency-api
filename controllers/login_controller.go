@@ -19,8 +19,8 @@ func NewLoginController(repo repositories.UserRepository, authServ services.Json
 
 func (ctrl *LoginController) Login(ctx *gin.Context) {
 	type request struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
+		Email    string `json:"email" binding:"required"`
+		Password string `json:"password" binding:"required"`
 	}
 	var req request
 

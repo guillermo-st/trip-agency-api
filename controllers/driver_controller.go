@@ -18,8 +18,8 @@ func NewDriverController(repo repositories.DriverRepository) *DriverController {
 
 func (ctrl *DriverController) GetDrivers(ctx *gin.Context) {
 	type request struct {
-		PageNum  uint `json:"page_num"`
-		PageSize uint `json:"page_size"`
+		PageNum  uint `json:"page_num" binding:"required"`
+		PageSize uint `json:"page_size" binding:"required"`
 	}
 	var req request
 
@@ -48,9 +48,9 @@ func (ctrl *DriverController) GetDrivers(ctx *gin.Context) {
 
 func (ctrl *DriverController) GetDriversByStatus(ctx *gin.Context) {
 	type request struct {
-		PageNum  uint `json:"page_num"`
-		PageSize uint `json:"page_size"`
-		IsOnTrip bool `json:"is_on_trip"`
+		PageNum  uint `json:"page_num" binding:"required"`
+		PageSize uint `json:"page_size" binding:"required"`
+		IsOnTrip bool `json:"is_on_trip" binding:"required"`
 	}
 	var req request
 
