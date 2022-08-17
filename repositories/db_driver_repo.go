@@ -47,7 +47,9 @@ func (repo *DBDriverRepository) GetDriversByStatus(pageSize uint, pageNum uint, 
 	queryFinishedAt := "IS NULL"
 	query := `SELECT u.user_id as user_id, u.first_name as first_name, u.last_name as last_name, u.email as email, u.password as password, u.role_id as role_id
 				FROM users u INNER JOIN trips t ON t.user_id = u.user_id
-				WHERE t.finished_at %v AND u.role_id = 2
+				WHERE t.finished_at %v AND u.role_id = 2 AND t.trip_id >= ALL (
+					SELECT tr.trip_id FROM trips tr WHERE tr.user_id = u.user_id 
+				)
 				ORDER BY user_id ASC
 				LIMIT $1 OFFSET $2;`
 
