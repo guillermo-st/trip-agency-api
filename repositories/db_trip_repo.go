@@ -12,14 +12,8 @@ type DBTripRepository struct {
 	db *sqlx.DB
 }
 
-func NewDBTripRepository(db *sqlx.DB) (*DBTripRepository, error) {
-	err := db.Ping()
-	if err != nil {
-		return nil, err
-	}
-
-	repo := &DBTripRepository{db}
-	return repo, nil
+func NewDBTripRepository(db *sqlx.DB) *DBTripRepository {
+	return &DBTripRepository{db}
 }
 
 func (repo *DBTripRepository) StartNewTripForDriver(driverId uint) error {

@@ -9,14 +9,8 @@ type DBUserRepository struct {
 	db *sqlx.DB
 }
 
-func NewDBUserRepository(db *sqlx.DB) (*DBUserRepository, error) {
-	err := db.Ping()
-	if err != nil {
-		return nil, err
-	}
-
-	repo := &DBUserRepository{db}
-	return repo, nil
+func NewDBUserRepository(db *sqlx.DB) *DBUserRepository {
+	return &DBUserRepository{db}
 }
 
 func (repo *DBUserRepository) GetUserByEmail(email string) (models.User, error) {

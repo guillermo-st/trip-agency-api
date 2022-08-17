@@ -12,14 +12,8 @@ type DBDriverRepository struct {
 	db *sqlx.DB
 }
 
-func NewDBDriverRepository(db *sqlx.DB) (*DBDriverRepository, error) {
-	err := db.Ping()
-	if err != nil {
-		return nil, err
-	}
-
-	repo := &DBDriverRepository{db}
-	return repo, nil
+func NewDBDriverRepository(db *sqlx.DB) *DBDriverRepository {
+	return &DBDriverRepository{db}
 }
 
 func (repo *DBDriverRepository) GetDrivers(pageSize uint, pageNum uint) ([]models.User, error) {
