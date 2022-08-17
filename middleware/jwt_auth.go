@@ -1,6 +1,8 @@
 package middleware
 
 import (
+	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,6 +11,17 @@ import (
 
 func AuthorizeJWT(isForAdminOnly bool) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
+		defer func() {
+			if r := recover(); r != nil {
+				err := errors.New("Panicked while trying to read Auth token")
+				fmt.Println(err.Error())
+			}
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+				"error":   true,
+				"message": "Could not retrieve user authentication token from the 'Bearer ' header.",
+			})
+		}()
+
 		const BEARER = "Bearer "
 		header := ctx.GetHeader("Authorization")
 		rawToken := header[len(BEARER):]
