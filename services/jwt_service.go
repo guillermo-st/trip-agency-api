@@ -9,6 +9,8 @@ import (
 	"github.com/guillermo-st/trip-agency-api/models"
 )
 
+const token_expire_hrs = 8
+
 type TokenClaims struct {
 	IssuedAt  time.Time `json:"issued_at"`
 	ExpiresAt time.Time `json:"expires_at"`
@@ -42,9 +44,9 @@ func NewJsonWebTokenService() (*JsonWebTokenService, error) {
 func (jwts *JsonWebTokenService) GenerateTokenWithUserClaims(usr models.User) (string, error) {
 	claims := &TokenClaims{
 		IssuedAt:  time.Now(),
-		ExpiresAt: time.Now().Add(time.Hour * 8),
+		ExpiresAt: time.Now().Add(time.Hour * token_expire_hrs),
 		UserId:    usr.Id,
-		IsAdmin:   (usr.RoleId == 1),
+		IsAdmin:   (usr.RoleId == models.ADMIN_ROLE_ID),
 	}
 
 	token, err := jwts.builder.Build(claims)
