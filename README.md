@@ -11,16 +11,16 @@ A simple WebAPI with user authentication + authorization, implemented in Golang.
 * New *admin* users can only be created by the DB administrator manually.
 
 # Stack
-[gin:]()
+[gin:](https://github.com/gin-gonic/gin)
 Gin was chosen initially as a Router for the serving API, but I quickly realized its benefits in terms of convenience when using **gin.Context**, **ShouldBindJSON**, and the many helpful abstractions it brings to routing and middleware. 
 
-[sqlx:]()
+[sqlx:](https://github.com/jmoiron/sqlx)
 A superset of the go sql package that allows unmarshalling query results into golang structs, making the process way less tedious.
 
-[jwt/v4:]()
+[jwt/v4:](github.com/cristalhq/jwt/v4)
 A very simple library for generating and validating JSON Web Tokens.
 
-[pq:]()
+[pq:](https://github.com/lib/pq)
 The battle-tested PostgreSQL driver for golang. Postgres was my relational DB of choice, and a .sql script is included in this repo to recreate the tables.
 
 # Known points of improvement
