@@ -11,7 +11,7 @@ type MockRepository struct {
 	AreDriversOnTrip map[string]bool
 }
 
-func NewMockRepository(initialUsers ...models.User) MockRepository {
+func NewMockRepository(initialUsers ...models.User) *MockRepository {
 	users := make(map[string]models.User)
 	areDriversOnTrip := make(map[string]bool)
 	for _, user := range initialUsers {
@@ -20,15 +20,15 @@ func NewMockRepository(initialUsers ...models.User) MockRepository {
 	}
 
 	repo := MockRepository{users, areDriversOnTrip}
-	return repo
+	return &repo
 }
 
-func (repo *MockRepository) GetUserByEmail(email string) (*models.User, error) {
+func (repo *MockRepository) GetUserByEmail(email string) (models.User, error) {
 	user, present := repo.Users[email]
 	if !present {
-		return nil, errors.New("User not found.")
+		return user, errors.New("User not found.")
 	}
-	return &user, nil
+	return user, nil
 }
 
 func (repo *MockRepository) StartNewTripForDriver(driver models.User) error {
