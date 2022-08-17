@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "f9700d42-8f41-4026-88c5-ba675717923b",
+		"name": "trip agency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13833331"
+	},
+	"item": [
+		{
+			"name": "drivers",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZWRfYXQiOiIyMDIyLTA4LTE3VDA5OjIwOjQwLjA3MTczNTktMDM6MDAiLCJleHBpcmVzX2F0IjoiMjAyMi0wOC0xN1QxNzoyMDo0MC4wNzE3MzU5LTAzOjAwIiwidXNlcl9pZCI6MSwiaXNfYWRtaW4iOnRydWV9.-Y_Mms6WmWFkeBu6FsB-RQAXICOaW5jZMN5oXV10W1k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page_num\": 0,\r\n    \"page_size\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/drivers",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"drivers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "drivers by status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZWRfYXQiOiIyMDIyLTA4LTE3VDA5OjIwOjQwLjA3MTczNTktMDM6MDAiLCJleHBpcmVzX2F0IjoiMjAyMi0wOC0xN1QxNzoyMDo0MC4wNzE3MzU5LTAzOjAwIiwidXNlcl9pZCI6MSwiaXNfYWRtaW4iOnRydWV9.-Y_Mms6WmWFkeBu6FsB-RQAXICOaW5jZMN5oXV10W1k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page_num\":0,\r\n    \"page_size\":10,\r\n    \"is_on_trip\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/drivers-by-status",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"drivers-by-status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddDriver",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZWRfYXQiOiIyMDIyLTA4LTE3VDA5OjIwOjQwLjA3MTczNTktMDM6MDAiLCJleHBpcmVzX2F0IjoiMjAyMi0wOC0xN1QxNzoyMDo0MC4wNzE3MzU5LTAzOjAwIiwidXNlcl9pZCI6MSwiaXNfYWRtaW4iOnRydWV9.-Y_Mms6WmWFkeBu6FsB-RQAXICOaW5jZMN5oXV10W1k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"driver\": {\r\n        \"first_name\": \"Jose\",\r\n        \"last_name\": \"Sanchez\",\r\n        \"email\": \"jsanchez@mail.com\",\r\n        \"password\": \"1234\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/drivers",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"drivers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"guillermo@mail.com\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login as admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"root@tripagency.com\",\r\n    \"password\": \"complicatedrootpassword\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "start trip",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZWRfYXQiOiIyMDIyLTA4LTE2VDIzOjIzOjM1LjUwNDEwMjUtMDM6MDAiLCJleHBpcmVzX2F0IjoiMjAyMi0wOC0xN1QwNzoyMzozNS41MDQxMDI1LTAzOjAwIiwidXNlcl9pZCI6MiwiaXNfYWRtaW4iOmZhbHNlfQ.WJXMV-y7OxDeWy23C9D_Bfg5NVls9hReSJtQj5bP0XE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8000/trips/start",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"trips",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "finish trip",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZWRfYXQiOiIyMDIyLTA4LTE3VDA5OjIwOjQwLjA3MTczNTktMDM6MDAiLCJleHBpcmVzX2F0IjoiMjAyMi0wOC0xN1QxNzoyMDo0MC4wNzE3MzU5LTAzOjAwIiwidXNlcl9pZCI6MSwiaXNfYWRtaW4iOnRydWV9.-Y_Mms6WmWFkeBu6FsB-RQAXICOaW5jZMN5oXV10W1k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/trips/finish",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"trips",
+						"finish"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
