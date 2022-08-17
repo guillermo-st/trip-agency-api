@@ -12,7 +12,7 @@ import (
 type TokenClaims struct {
 	IssuedAt  time.Time `json:"issued_at"`
 	ExpiresAt time.Time `json:"expires_at"`
-	UserId    uint64    `json:"user_id"`
+	UserId    uint      `json:"user_id"`
 	IsAdmin   bool      `json:"is_admin"`
 }
 
