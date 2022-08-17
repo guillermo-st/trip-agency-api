@@ -24,8 +24,9 @@ func NewDBTripRepository(db *sqlx.DB) (*DBTripRepository, error) {
 
 func (repo *DBTripRepository) StartNewTripForDriver(driverId uint) error {
 	var lastTrip models.Trip
-	alreadyOnTripErr := repo.db.Get(&lastTrip, "SELECT trip_id, user_id, started_at, finished_at FROM trips WHERE user_id = $1 AND finished_at IS NULL", driverId)
-	if alreadyOnTripErr != nil {
+
+	repo.db.Get(&lastTrip, "SELECT trip_id, user_id, started_at, finished_at FROM trips WHERE user_id = $1 AND finished_at IS NULL", driverId)
+	if lastTrip.UserId != 0 && !lastTrip.FinishedAt.Valid { //ugly workaround because of postgresql driver shenanigans
 		return errors.New("Can't start a new trip for a driver whose current trip has not finished.")
 	}
 
@@ -44,8 +45,8 @@ func (repo *DBTripRepository) StartNewTripForDriver(driverId uint) error {
 
 func (repo *DBTripRepository) FinishTripForDriver(driverId uint) error {
 	var lastTrip models.Trip
-	alreadyOnTripErr := repo.db.Get(&lastTrip, "SELECT trip_id, user_id, started_at, finished_at FROM trips WHERE user_id = $1 AND finished_at IS NULL", driverId)
-	if alreadyOnTripErr == nil {
+	existsErr := repo.db.Get(&lastTrip, "SELECT trip_id, user_id, started_at, finished_at FROM trips WHERE user_id = $1 AND finished_at IS NULL", driverId)
+	if existsErr != nil || lastTrip.FinishedAt.Valid {
 		return errors.New("Can't finish a trip for a driver that is not currently on trip.")
 	}
 
